@@ -1,4 +1,5 @@
 #include "get_next_line.h"
+#include <stdio.h>
 
 char	*free_join(char *s1, char *s2)
 {
@@ -21,7 +22,7 @@ char	*read_line(int fd, char *dest)
 	while (byte > 0)
 	{
 		byte = read(fd, buffer, BUFFER_SIZE);
-		if (byte == -1)
+		if (byte < 0)
 		{
 			free(buffer);
 			return (NULL);
@@ -35,11 +36,11 @@ char	*read_line(int fd, char *dest)
 	return (dest);
 }
 
-char	*trim_line(char *buffer)
+char	**split_line(char *buffer)
 {
 	int i;
 	int j;
-	char *dest;
+	char **dest;
 
 	i = 0;
 	j = 0;
@@ -47,18 +48,25 @@ char	*trim_line(char *buffer)
 		return (NULL);
 	while (buffer[i] && buffer[i] != '\n')
 		i++;
-	dest = ft_calloc(i + 2, sizeof(char));
-	if (!dest)
-		return (NULL);
-	while (j <= i)
+	dest = ft_calloc(2, sizeof(char *));
+	dest[0] = ft_calloc(i + 2, sizeof(char));
+	dest[1] = ft_calloc((ft_strlen(buffer) - i) + 1, sizeof(char));
+	while (j <= i && buffer[j])
 	{
-		dest[j] = buffer[j];
+		dest[0][j] = buffer[j];
 		j++;
 	}
+	i = 0;
+	while (buffer[j + i])
+	{
+		dest[1][i] = buffer[j + i];
+		i++;
+	}
+	free(buffer);
 	return (dest);
 }
 
-char	*next_line(char *buffer)
+/*char	*next_line(char *buffer)
 {
 	int i;
 	int j;
@@ -84,19 +92,22 @@ char	*next_line(char *buffer)
 	}
 	free(buffer);
 	return (dest);
-}
+}*/
 
 char	*get_next_line(int fd)
 {
 	static char	*buffer;
 	char		*line;
+	char		**split;
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 		return (NULL);
 	buffer = read_line(fd, buffer);
-	if (!buffer)
+	if (!buffer || !buffer[0])
 		return (NULL);
-	line = trim_line(buffer);
-	buffer = next_line(buffer);
+	split = split_line(buffer);
+	line = ft_strdup(split[0]);
+	buffer = ft_strdup(split[1]);
+	free(split);
 	return (line);
 }

@@ -70,3 +70,22 @@ char	*ft_strchr(const char *s, int c)
 		return ((char *)s);
 	return (NULL);
 }
+
+char	*ft_strdup(const char *src)
+{
+	char	*dest;
+	int 	i;
+
+	i = 0;
+	dest = malloc(sizeof(char) * (ft_strlen(src) + 1));
+	if (!dest)
+		return (NULL);
+	while (src[i])
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
+	free((char *)src);
+	return (dest);
+}
