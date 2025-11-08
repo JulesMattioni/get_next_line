@@ -28,6 +28,8 @@ char	*read_line(int fd, char *dest)
 			return (NULL);
 		}
 		buffer[byte] = '\0';
+		if (byte == 0 && dest[0] == 0)
+			break ;
 		dest = free_join(dest, buffer);
 		if (ft_strchr(dest, '\n'))
 			break ;
@@ -38,9 +40,9 @@ char	*read_line(int fd, char *dest)
 
 char	**split_line(char *buffer)
 {
-	int i;
-	int j;
-	char **dest;
+	int		i;
+	int		j;
+	char	**dest;
 
 	i = 0;
 	j = 0;
@@ -62,7 +64,6 @@ char	**split_line(char *buffer)
 		dest[1][i] = buffer[j + i];
 		i++;
 	}
-	free(buffer);
 	return (dest);
 }
 
@@ -103,11 +104,16 @@ char	*get_next_line(int fd)
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 		return (NULL);
 	buffer = read_line(fd, buffer);
-	if (!buffer || !buffer[0])
+	if (!buffer)
+		return (NULL);
+	if (!buffer[0])
 		return (NULL);
 	split = split_line(buffer);
+	free(buffer);
 	line = ft_strdup(split[0]);
 	buffer = ft_strdup(split[1]);
+	if (!buffer[0])
+		free(buffer);
 	free(split);
 	return (line);
 }
