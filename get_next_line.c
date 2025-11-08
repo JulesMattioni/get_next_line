@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jmattion <jmattion@student.42nice.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/05 14:04:07 by jmattion          #+#    #+#             */
+/*   Updated: 2025/11/05 14:08:11 by jmattion         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 #include <stdio.h>
 
 char	*free_join(char *s1, char *s2)
 {
-	char *dest;
+	char	*dest;
 
 	dest = ft_strjoin(s1, s2);
 	free(s1);
@@ -12,8 +24,8 @@ char	*free_join(char *s1, char *s2)
 
 char	*read_line(int fd, char *dest)
 {
-	int	byte;
-	char *buffer;
+	int		byte;
+	char	*buffer;
 
 	byte = 1;
 	if (!dest)
@@ -66,34 +78,6 @@ char	**split_line(char *buffer)
 	}
 	return (dest);
 }
-
-/*char	*next_line(char *buffer)
-{
-	int i;
-	int j;
-	char *dest;
-
-	i = 0;
-	j = 0;
-	while (buffer[i] && buffer[i] != '\n')
-		i++;
-	if (!buffer[i])
-	{
-		free(buffer);
-		return (NULL);
-	}
-	dest = ft_calloc((ft_strlen(buffer) - i + 1), sizeof(char));
-	if (!dest)
-		return (NULL);
-	i++;
-	while (buffer[i + j])
-	{
-		dest[j] = buffer[i + j];
-		j++;
-	}
-	free(buffer);
-	return (dest);
-}*/
 
 char	*get_next_line(int fd)
 {
