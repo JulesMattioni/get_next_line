@@ -6,7 +6,7 @@
 /*   By: jmattion <jmattion@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/12 13:27:46 by jmattion          #+#    #+#             */
-/*   Updated: 2025/11/12 13:27:47 by jmattion         ###   ########.fr       */
+/*   Updated: 2025/11/12 16:11:24 by jmattion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,6 @@
 
 # include <unistd.h>
 # include <stdlib.h>
-# include <limits.h>
-
-# ifndef OPEN_MAX
-#  define OPEN_MAX 256
-# endif
 
 char	*ft_strdup(const char *src);
 char	*ft_strchr(const char *s, int c);

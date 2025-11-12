@@ -6,7 +6,7 @@
 /*   By: jmattion <jmattion@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/12 13:27:07 by jmattion          #+#    #+#             */
-/*   Updated: 2025/11/12 13:30:32 by jmattion         ###   ########.fr       */
+/*   Updated: 2025/11/12 16:12:39 by jmattion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ char	*next_line(char *buffer)
 
 char	*get_next_line(int fd)
 {
-	static char	*buffer[OPEN_MAX];
+	static char	*buffer[256];
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
